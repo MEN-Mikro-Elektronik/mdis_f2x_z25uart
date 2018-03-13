@@ -1,0 +1,26 @@
+# this is UP
+
+
+ld < work/mdis_f26l.o
+
+OSS_SetIrqNum0(20)
+# MK_SetIntConnectRtn(pciIntConnect)
+# MK_SetSmpPciIrqNumToVirtualIrqNumRtn(sysPentiumPciIrqNumToVirtualIrqNum)
+# MK_SetIntEnableRtn(intEnable)
+OS2M_DrvInstall
+
+# Z25 Debug level hoch
+G_Z25_DebugLevel = 0xc0008007
+# OSS debug level hoch
+# OSS_DbgLev=0xc0008001
+
+# mehr DBG_Show Buffer
+DBG_SetMemSize(0x20000)
+
+Z25_CreateDevice("/tyZ25_0", "PCI0:5.14.0", 1, 0x0, 0x00, 1843200, pciIntConnect, intEnable)
+
+fd00 = open("/tyZ25_00/0", 2, 0)
+
+ioctl ( fd00 , 4, 115200 )
+
+# write fd00, "hallo00", 7
